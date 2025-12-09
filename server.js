@@ -18,6 +18,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve static files from current directory (for testing frontend)
 app.use(express.static(path.join(__dirname)));
 
+// Default route for the root URL
+app.get('/', (req, res) => {
+  res.send('<h1>Parcel Nexus Backend is Running!</h1><p>Deployment Successful. Use API endpoints.</p>');
+});
+
 // Routes
 const authRoutes = require('./routes/auth');
 const bidsRoutes = require('./routes/bids');
