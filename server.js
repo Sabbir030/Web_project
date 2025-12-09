@@ -15,12 +15,12 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files from current directory (for testing frontend)
-app.use(express.static(path.join(__dirname)));
+// Serve static files from the 'client' directory
+app.use(express.static(path.join(__dirname, 'client')));
 
-// Default route for the root URL
+// Default route to serve the frontend
 app.get('/', (req, res) => {
-  res.send('<h1>Parcel Nexus Backend is Running!</h1><p>Deployment Successful. Use API endpoints.</p>');
+  res.sendFile(path.join(__dirname, 'client', 'home.html'));
 });
 
 // Routes
