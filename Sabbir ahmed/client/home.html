@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Parcel Nexus — Courier Marketplace</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- NAV -->
+    <div class="nav">
+      <div class="container row">
+        <div class="brand">
+          <div class="logo">PN</div>
+          <span>Parcel Nexus</span>
+          <span class="chip">Bangladesh • Marketplace</span>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Navigate">
+          <button class="tab active" data-target="home">Home</button>
+          <button class="tab" data-target="merchant">Merchant</button>
+          <button class="tab" data-target="courier">Courier</button>
+          <button class="tab" data-target="payments">Payments</button>
+          <button class="tab" data-target="tracking">Tracking</button>
+        </div>
+        <div class="nav-cta">
+          <button class="btn ghost" id="openLogin">Login</button>
+          <button class="btn primary" id="openRegister">Register</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOME -->
+    <main class="container page active" id="home" aria-labelledby="home-tab">
+      <section class="hero">
+        <div>
+          <h1>
+            <span class="gradient">Reinventing local delivery</span> with
+            transparent bids
+          </h1>
+          <p>
+            Parcel Nexus connects businesses with verified riders across
+            Bangladesh. Post a job, accept a bid, track live progress—simple.
+          </p>
+          <div class="row">
+            <button class="btn primary" data-open="register">
+              Get Started
+            </button>
+            <button class="btn" data-scroll="#how">How it Works</button>
+          </div>
+          <div class="space"></div>
+          <div class="kpis">
+            <div class="kpi">
+              <strong>5,200+</strong><br /><span class="sub">Couriers</span>
+            </div>
+            <div class="kpi">
+              <strong>98.7%</strong><br /><span class="sub"
+                >On-time deliveries</span
+              >
+            </div>
+            <div class="kpi">
+              <strong>৳12.4M</strong><br /><span class="sub"
+                >Payments processed</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="visual glass" aria-hidden="true">
+          <!-- playful route drawing -->
+          <svg viewBox="0 0 520 320" fill="none">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0" stop-color="#22d3ee" />
+                <stop offset="1" stop-color="#a78bfa" />
+              </linearGradient>
+            </defs>
+            <rect
+              x="20"
+              y="20"
+              width="480"
+              height="280"
+              rx="16"
+              stroke="url(#g1)"
+              opacity=".7"
+            />
+            <circle cx="110" cy="240" r="8" fill="#22d3ee" />
+            <circle cx="400" cy="80" r="8" fill="#a78bfa" />
+            <path
+              d="M110 240 C 180 210, 230 180, 260 160 S 350 110, 400 80"
+              stroke="url(#g1)"
+              stroke-width="6"
+              stroke-linecap="round"
+              fill="none"
+            />
+            <text x="95" y="270" fill="#bfeaf5" font-size="12">
+              Pickup • Gulshan
+            </text>
+            <text x="360" y="60" fill="#e6dcff" font-size="12">
+              Drop • Mirpur
+            </text>
+          </svg>
+        </div>
+      </section>
+
+      <section id="how" class="grid cols-3">
+        <div class="panel glass">
+          <h3>1) Post a delivery</h3>
+          <p class="sub">
+            Describe your parcel, route, expected time, and budget cap.
+          </p>
+        </div>
+        <div class="panel glass">
+          <h3>2) Compare bids</h3>
+          <p class="sub">
+            Couriers propose price & ETA. Choose the best balance of cost and
+            reputation.
+          </p>
+        </div>
+        <div class="panel glass">
+          <h3>3) Track & pay</h3>
+          <p class="sub">
+            Follow progress in real time and pay securely when it’s done.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- MERCHANT DASHBOARD -->
+    <section class="container page" id="merchant">
+      <div class="grid cols-3">
+        <div class="panel glass">
+          <div class="row" style="justify-content: space-between">
+            <h3>Active Bids</h3>
+            <button class="btn primary" id="openBid">Create Bid</button>
+          </div>
+          <div class="list" id="activeBids"></div>
+        </div>
+
+        <div class="panel glass">
+          <h3>My Deliveries</h3>
+          <div class="list" id="myDeliveries"></div>
+        </div>
+
+        <div class="panel glass">
+          <h3>Account</h3>
+          <p class="sub">Welcome back, <strong>Mostofa</strong>!</p>
+          <div class="space"></div>
+          <div class="list">
+            <div class="card">
+              <div class="title">Verification</div>
+              <div class="meta">
+                <span class="pill">Business • Verified</span
+                ><span class="pill">Since 2022</span>
+              </div>
+            </div>
+            <div class="card">
+              <div class="title">Balance</div>
+              <div class="meta">
+                <span class="badge info">৳ 12,450 available</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COURIER DASHBOARD -->
+    <section class="container page" id="courier">
+      <div class="grid cols-3">
+        <div class="panel glass">
+          <div class="row" style="justify-content: space-between">
+            <h3>Available Delivery Bids</h3>
+            <span class="chip">Auto-refresh • 30s</span>
+          </div>
+          <div class="list" id="availableBids"></div>
+        </div>
+
+        <div class="panel glass">
+          <h3>My Pending Bids</h3>
+          <div class="list" id="pendingBids">
+            <div class="sub">No pending bids</div>
+          </div>
+        </div>
+
+        <div class="panel glass">
+          <h3>Assigned Deliveries</h3>
+          <div class="list" id="assigned"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAYMENTS -->
+    <section class="container page" id="payments">
+      <div class="grid">
+        <div class="panel glass">
+          <div class="row" style="justify-content: space-between">
+            <div>
+              <h3>Payment Gateway</h3>
+              <p class="sub">
+                All transactions are encrypted (TLS 1.3). PCI-aware flows.
+              </p>
+            </div>
+            <div class="badge success">
+              Current Balance: ৳ <span id="balance">12450</span>
+            </div>
+          </div>
+          <div class="space"></div>
+          <div class="two">
+            <div>
+              <label for="payShipment">Select Shipment</label>
+              <select id="payShipment"></select>
+            </div>
+            <div>
+              <label for="payAmount">Payment Amount (BDT)</label>
+              <input
+                id="payAmount"
+                type="number"
+                min="0"
+                step="10"
+                placeholder="0.00"
+              />
+            </div>
+          </div>
+          <div class="space"></div>
+          <div>
+            <label>Courier</label>
+            <div class="row">
+              <div class="chip">Rahim Khan</div>
+              <div class="chip">Bike • DH-12345</div>
+              <div class="chip">01712-345678</div>
+            </div>
+          </div>
+          <div class="space"></div>
+          <div>
+            <label>Payment Method</label>
+            <div class="methods" id="methods">
+              <div class="method active" data-method="bank">Bank Transfer</div>
+              <div class="method" data-method="mfs">Mobile Financial</div>
+              <div class="method" data-method="cash">Cash</div>
+            </div>
+          </div>
+          <div class="space"></div>
+          <button class="btn primary" id="makePayment">Make Payment</button>
+          <div id="payNote" class="sub" style="margin-top: 10px"></div>
+        </div>
+
+        <div class="panel glass">
+          <h3>Transaction History</h3>
+          <div id="txHistory" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRACKING -->
+    <section class="container page" id="tracking">
+      <div class="grid">
+        <div class="panel glass">
+          <h3>Track Your Delivery</h3>
+          <div class="two">
+            <input id="trackId" placeholder="e.g., PN-1234" />
+            <button class="btn primary" id="trackBtn">Track</button>
+          </div>
+          <div class="space"></div>
+          <div class="grid cols-3">
+            <div class="card">
+              <div class="title">Delivery Details</div>
+              <div id="trackDetails" class="sub">
+                Enter a tracking ID to view details.
+              </div>
+            </div>
+            <div class="card">
+              <div class="title">Delivery Route</div>
+              <div id="route" class="sub">Route preview will appear here.</div>
+            </div>
+            <div class="card">
+              <div class="title">Courier</div>
+              <div id="courierInfo" class="sub">—</div>
+            </div>
+          </div>
+          <div class="space"></div>
+          <div class="card">
+            <div class="title">Timeline</div>
+            <div id="timeline" class="timeline"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-wrap">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <div class="footer-brand">
+              <div class="footer-logo">PN</div>
+              <strong>Parcel Nexus</strong>
+            </div>
+            <p>
+              A transparent courier marketplace connecting merchants with
+              verified riders across Bangladesh.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul class="footer-list">
+              <li>
+                <a
+                  href="#"
+                  onclick="document.querySelector('#how').scrollIntoView({behavior:'smooth'})"
+                  >How it works</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  onclick="document.querySelector('[data-target=merchant]').click()"
+                  >Merchant Dashboard</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  onclick="document.querySelector('[data-target=courier]').click()"
+                  >Courier Dashboard</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  onclick="document.querySelector('[data-target=payments]').click()"
+                  >Payments</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  onclick="document.querySelector('[data-target=tracking]').click()"
+                  >Tracking</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul class="footer-list">
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Safety & Verification</a></li>
+              <li><a href="#">Fees & Limits</a></li>
+              <li><a href="#">Terms • Privacy</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Contact</h4>
+            <ul class="footer-list">
+              <li><a href="tel:+8801700000000">+880 1700-000000</a></li>
+              <li>
+                <a href="mailto:support@parcelnexus.io"
+                  >support@parcelnexus.io</a
+                >
+              </li>
+              <li><a href="#">Dhaka, Bangladesh</a></li>
+            </ul>
+            <div class="social" style="margin-top: 10px">
+              <a href="#" aria-label="Facebook">f</a>
+              <a href="#" aria-label="Twitter">t</a>
+              <a href="#" aria-label="LinkedIn">in</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>© <span id="yr"></span> Parcel Nexus. All rights reserved.</div>
+          <div>Made with ❤️ in Bangladesh</div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- OVERLAYS / MODALS -->
+    <div class="overlay" id="bidOverlay" aria-modal="true" role="dialog">
+      <div class="modal">
+        <header>
+          <strong>Create New Delivery Bid</strong>
+          <button class="close" data-close="bidOverlay" aria-label="Close">
+            ×
+          </button>
+        </header>
+        <div class="list">
+          <div>
+            <label>Product Description</label
+            ><textarea
+              id="pDesc"
+              rows="3"
+              placeholder="Electronics… fragile"
+            ></textarea>
+          </div>
+          <div class="two">
+            <div>
+              <label>Pickup</label
+              ><input id="pFrom" placeholder="Gulshan, Dhaka" />
+            </div>
+            <div>
+              <label>Delivery</label
+              ><input id="pTo" placeholder="Mirpur, Dhaka" />
+            </div>
+          </div>
+          <div class="two">
+            <div>
+              <label>Expected Time</label
+              ><input id="pEta" type="datetime-local" />
+            </div>
+            <div>
+              <label>Max Price (৳)</label
+              ><input id="pCap" type="number" min="0" step="10" />
+            </div>
+          </div>
+        </div>
+        <div class="space"></div>
+        <div class="row" style="justify-content: flex-end">
+          <button class="btn" data-close="bidOverlay">Cancel</button>
+          <button class="btn primary" id="createBid">Create Bid</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="authOverlay">
+      <div class="modal">
+        <header>
+          <strong id="authTitle">Login</strong>
+          <button class="close" data-close="authOverlay">×</button>
+        </header>
+        <div class="auth-tabs">
+          <button class="btn ghost" id="loginTab">Login</button>
+          <button class="btn ghost" id="registerTab">Register</button>
+        </div>
+        <div id="loginForm" class="list">
+          <div class="two">
+            <div>
+              <label>Account Type</label>
+              <select id="loginType">
+                <option>Merchant</option>
+                <option>Courier</option>
+              </select>
+            </div>
+            <div>
+              <label>Username</label>
+              <input id="loginUser" placeholder="username" />
+            </div>
+          </div>
+          <div>
+            <label>Password</label>
+            <input id="loginPass" type="password" placeholder="••••••••" />
+          </div>
+          <div class="row" style="justify-content: flex-end">
+            <button class="btn primary" id="doLogin">Login</button>
+          </div>
+        </div>
+
+        <div id="registerForm" class="list" style="display: none">
+          <div class="auth-tabs">
+            <button class="btn" id="asMerchant">I’m a Merchant</button>
+            <button class="btn" id="asCourier">I’m a Courier</button>
+          </div>
+          <div class="two">
+            <div>
+              <label>Full Name</label
+              ><input id="rName" placeholder="Full name" />
+            </div>
+            <div>
+              <label>Username</label><input id="rUser" placeholder="username" />
+            </div>
+          </div>
+          <div class="two">
+            <div>
+              <label>Email</label
+              ><input id="rEmail" type="email" placeholder="you@mail.com" />
+            </div>
+            <div>
+              <label>Phone</label
+              ><input id="rPhone" placeholder="01XXXXXXXXX" />
+            </div>
+          </div>
+          <div>
+            <label>Address</label
+            ><input id="rAddr" placeholder="Street, City" />
+          </div>
+          <div>
+            <label>Password</label
+            ><input id="rPass" type="password" placeholder="••••••••" />
+          </div>
+          <div class="row" style="justify-content: flex-end">
+            <button class="btn primary" id="doRegister">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
