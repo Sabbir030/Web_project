@@ -6,7 +6,7 @@ const path = require('path');
 const connectDB = require('./database');
 
 const app = express();
-const PORT = 9090;
+const PORT = process.env.PORT || 9090;
 
 // Connect to MongoDB
 connectDB();
@@ -31,8 +31,11 @@ app.use('/api/deliveries', deliveriesRoutes);
 app.use('/api/payments', paymentsRoutes);
 app.use('/api/tracking', trackingRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Only run the server if this file is run directly (not imported as a module)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
 module.exports = app;
