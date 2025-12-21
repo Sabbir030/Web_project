@@ -11,7 +11,12 @@ router.post('/register', async (req, res) => {
   const { name, email, password, role, phone, address } = req.body;
 
   if (!name || !email || !password || !role) {
-    return res.status(400).json({ error: 'Missing required fields' });
+    const missing = [];
+    if (!name) missing.push('name');
+    if (!email) missing.push('email');
+    if (!password) missing.push('password');
+    if (!role) missing.push('role');
+    return res.status(400).json({ error: `Missing required fields: ${missing.join(', ')}` });
   }
 
   try {

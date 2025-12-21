@@ -471,9 +471,7 @@
               <label>Full Name</label
               ><input id="rName" placeholder="Full name" />
             </div>
-            <div>
-              <label>Username</label><input id="rUser" placeholder="username" />
-            </div>
+            <!-- Username field removed as it was unused and confusing -->
           </div>
           <div class="two">
             <div>
@@ -497,6 +495,27 @@
             <button class="btn primary" id="doRegister">Register</button>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- AI CHATBOX -->
+    <div id="aiChatBtn" class="chat-btn" title="Ask AI Assistant">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+    </div>
+
+    <div id="aiChatWindow" class="chat-window glass">
+      <div class="chat-header">
+        <strong>Parcel Nexus AI</strong>
+        <button id="closeChat" class="close">×</button>
+      </div>
+      <div id="chatMessages" class="chat-messages">
+        <div class="msg ai">Hello! I'm your assistant. How can I help you today?</div>
+      </div>
+      <div class="chat-input">
+        <input id="userMsg" placeholder="Type a message..." />
+        <button id="sendMsg">→</button>
       </div>
     </div>
 

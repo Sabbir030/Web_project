@@ -361,11 +361,20 @@
 
   byId("doRegister").addEventListener("click", async () => {
     const name = byId("rName").value.trim();
-    const email = byId("rEmail").value.trim(); // Using username field as email for simplicity or update HTML
+    const email = byId("rEmail").value.trim();
     const password = byId("rPass").value;
     const phone = byId("rPhone").value.trim();
+    // Address is optional but good to have, purely optional in backend? No, backend needs it? 
+    // Backend schema: name, email, password, role are required. Phone/Address are not strictly required by schema but created.
+    // Let's make them required for better data quality or just warn. 
+    // Backend routes/auth.js checks: if (!name || !email || !password || !role)
     const address = byId("rAddr").value.trim();
     const role = byId("asMerchant").classList.contains("primary") ? "merchant" : "courier";
+
+    if (!name || !email || !password) {
+      alert("Please fill in Name, Email, and Password.");
+      return;
+    }
 
     try {
       const data = await apiCall('/auth/register', 'POST', { name, email, password, role, phone, address });
@@ -433,5 +442,58 @@
     if (!btn) return;
     placeBid(btn.dataset.bid);
   });
+  
+  // --- AI Chatbox ---
+  const chatBtn = byId("aiChatBtn");
+  const chatWindow = byId("aiChatWindow");
+  const closeChat = byId("closeChat");
+  const sendMsgBtn = byId("sendMsg");
+  const userMsgInput = byId("userMsg");
+  const chatMessages = byId("chatMessages");
+
+  if (chatBtn) {
+    chatBtn.addEventListener("click", () => {
+      chatWindow.classList.add("show");
+      userMsgInput.focus();
+    });
+    closeChat.addEventListener("click", () => chatWindow.classList.remove("show"));
+  }
+
+  const addMessage = (text, sender) => {
+    const div = document.createElement("div");
+    div.className = `msg ${sender}`;
+    div.textContent = text;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  };
+
+  const handleSend = async () => {
+    const text = userMsgInput.value.trim();
+    if (!text) return;
+    
+    addMessage(text, "user");
+    userMsgInput.value = "";
+    
+    // Simulate loading or call backend
+    try {
+      const res = await fetch(`${API_URL}/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text })
+      });
+      const data = await res.json();
+      addMessage(data.reply, "ai");
+    } catch (e) {
+      addMessage("Sorry, I'm having trouble connecting.", "ai");
+    }
+  };
+
+  if (sendMsgBtn) {
+    sendMsgBtn.addEventListener("click", handleSend);
+    userMsgInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") handleSend();
+    });
+  }
+
 })();
 

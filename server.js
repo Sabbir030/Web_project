@@ -35,6 +35,7 @@ app.use('/api/bids', bidsRoutes);
 app.use('/api/deliveries', deliveriesRoutes);
 app.use('/api/payments', paymentsRoutes);
 app.use('/api/tracking', trackingRoutes);
+app.use('/api/chat', require('./routes/chat'));
 
 // Only run the server if this file is run directly (not imported as a module)
 if (require.main === module) {
